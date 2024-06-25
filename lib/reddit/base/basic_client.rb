@@ -28,6 +28,7 @@ module Reddit
         @headers = @options.delete(:headers)
         @retries = @options.delete(:retries)
         @secure  = @options.delete(:secure)
+        @proxy = @options.delete(:proxy)
 
         @url = @options[:url] || (@secure ? DEFAULT_URL_SECURE : DEFAULT_URL)
 
@@ -41,6 +42,7 @@ module Reddit
           builder.use      :reddit_modhash
           builder.use      :reddit_rate_limit
           builder.adapter  Faraday.default_adapter
+          builder.proxy = @proxy if @proxy
         end
       end
 
